@@ -1,9 +1,22 @@
 // const axios = require("axios");
 import axios from "axios";
+import { resourceUsage } from "process";
 
 /* assign interface/type to the function definition properly */
 const getTodo = async (todoId: number) => {
-  /* Your code here */
+  try {
+    const todoo = await axios.get("https://jsonplaceholder.typicode.com/todos/" + todoId);
+    const userr = await axios.get("https://jsonplaceholder.typicode.com/users/" + todoo.data.userId);
+    
+    return {
+      owner: userr.data.name,
+      title: todoo.data.title,
+      completed: todoo.data.completed
+    };
+
+  } catch (error) {
+    return "INVALID TODO ID";
+  }
 };
 
 //test case
